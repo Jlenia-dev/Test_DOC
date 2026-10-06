@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Task — Test di usabilità</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8f9f9;
+      --ink: #1c1f26;
+      --body: #33352f;
+      --gold: #c0a05a;
+      --muted: #6f6a5e;
+      --rule: #e6e3dc;
+      --info-bg: #f6fbf9;
+      --info-border: #e2efe6;
+    }
+    * { box-sizing: border-box; }
+    html { font-size: 15px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--body);
+      font-family: "Jost", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      justify-content: center;
+      padding: 4.5rem 1.5rem 5rem;
+    }
+    .sheet { width: 100%; max-width: 620px; }
+    .counter { font-size: 0.95rem; color: #9a9488; letter-spacing: 1px; margin: 0 0 1.6rem; }
+    h1 {
+      font-weight: 400;
+      font-size: clamp(2.4rem, 6vw, 3.4rem);
+      color: var(--ink);
+      letter-spacing: 0.5px;
+      margin: 0 0 2.2rem;
+    }
+    .scenario {
+      background: #eceeee;
+      border-radius: 0.9rem;
+      padding: 1.5rem 1.6rem;
+      font-size: 1.06rem;
+      line-height: 1.65;
+      color: #3b3d38;
+      margin-bottom: 2.4rem;
+    }
+    .activity + .activity { border-top: 0.5px solid var(--rule); margin-top: 1.9rem; padding-top: 1.9rem; }
+    .tag {
+      display: inline-block;
+      background: #eceeee;
+      color: #6f6a5e;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      padding: 0.28rem 0.6rem;
+      border-radius: 0.35rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+    }
+    .activity p,
+    .activity ul,
+    .activity ol,
+    .scenario p,
+    .scenario ul,
+    .scenario ol {
+      margin: 0;
+      font-size: 1.06rem;
+      line-height: 1.65;
+    }
+    /* Un solo <br> mantiene il salto di riga e aggiunge solo una piccola
+       interlinea. Se nel testo sono rimasti due <br>, il secondo non aggiunge
+       un ulteriore spazio ampio. */
+    .activity br,
+    .scenario br {
+      display: block;
+      content: "";
+      margin-top: 0.2rem;
+    }
+    .activity br + br,
+    .scenario br + br {
+      margin-top: 0;
+    }
+    .activity p + p,
+    .activity p + ul,
+    .activity p + ol,
+    .activity ul + p,
+    .activity ol + p,
+    .scenario p + p,
+    .scenario p + ul,
+    .scenario p + ol,
+    .scenario ul + p,
+    .scenario ol + p {
+      margin-top: 0.75rem;
+    }
+    .activity ul,
+    .activity ol,
+    .scenario ul,
+    .scenario ol {
+      padding-left: 1.35rem;
+    }
+    .activity li + li,
+    .scenario li + li {
+      margin-top: 0.35rem;
+    }
+    strong { color: #1c1c1c; font-weight: 500; }
+    /* Parole da leggere esattamente come compaiono sul sito:
+       si scrivono normali in tasks.js e la pagina le rende maiuscole. */
+    .caps { text-transform: uppercase; letter-spacing: 0.04em; }
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.4rem;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: #0b0d10;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1.4px;
+      padding: 1.05rem 1.9rem;
+      border-radius: 999px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta svg { transition: transform 0.2s; }
+    .cta:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(11,13,16,0.16); }
+    .cta:hover svg { transform: translateX(2px); }
+    .cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+    .hint {
+      margin: 4.2rem 0 0;
+      padding-top: 1.4rem;
+      border-top: 0.5px solid var(--rule);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #8a857b;
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+    }
+    .hint svg { flex: 0 0 auto; color: #8a857b; }
+    .hint .text { margin: 0; }
+    .survey-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #fff;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: calc(1.05rem - 1px) 1.5rem;
+      border-radius: 999px;
+      border: 1px solid #eceae5;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: transform 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .survey-btn:hover { transform: translateY(-1px); border-color: #dedad3; color: var(--ink); box-shadow: 0 3px 8px rgba(11,13,16,0.08); }
+    .survey-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+    .survey-btn svg { opacity: 0.95; }
+
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <p class="counter" id="counter">1/5</p>
+    <h1 id="title">Task 1</h1>
+    <div id="content"></div>
+
+    <div class="hint" role="note" aria-live="polite">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <circle cx="12" cy="16" r="0.5"></circle>
+      </svg>
+      <p class="text">Il task si apre in una nuova scheda: puoi tornare qui a rileggere le istruzioni quando vuoi.</p>
+    </div>
+
+    <div class="actions">
+      <a class="survey-btn" id="surveyBtn" target="_blank" rel="noopener noreferrer" hidden aria-label="Compila questionario">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="8" x2="16" y2="8"></line><line x1="8" y1="12" x2="16" y2="12"></line><line x1="8" y1="16" x2="13" y2="16"></line></svg>
+        Compila questionario
+      </a>
+
+      <a class="cta" id="startBtn" target="_blank" rel="noopener noreferrer">
+        INIZIA IL TASK
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+    </div>
+
+
+  </main>
+
+  <script src="tasks.js"></script>
+  <script>
+  /* Variante B — l'ambiente non si lascia incorporare.
+     Le istruzioni restano in questa scheda, il sito si apre in una
+     scheda accanto e il partecipante fa avanti e indietro. */
+
+  const params = new URLSearchParams(location.search);
+  const task = TASKS[params.get("task")] || TASKS[1];
+  const url = params.get("url") || OVERRIDE_URL || task.url;
+
+  // elementi
+  const counterEl = document.getElementById('counter');
+  const titleEl = document.getElementById('title');
+  const contentEl = document.getElementById('content');
+  const startBtn = document.getElementById('startBtn');
+  const surveyBtn = document.getElementById('surveyBtn');
+
+  const richTextToHtml = (value = "") => {
+    const text = String(value).trim();
+    if (!text) return "";
+
+    if (/<\s*(?:ul|ol)\b/i.test(text)) {
+      return text;
+    }
+
+    return `<p>${text.replace(/\n+/g, "<br>")}</p>`;
+  };
+
+  document.title = task.title + " — Test di usabilità";
+  counterEl.textContent = task.counter;
+  titleEl.textContent = task.title;
+  startBtn.href = url;
+
+  /* Il questionario non si apre automaticamente insieme al task: lo lasciamo
+     all'azione esplicita dell'utente tramite il pulsante "Compila questionario". */
+  const survey = task.survey || (typeof QUESTIONARIO_URL !== "undefined" ? QUESTIONARIO_URL : "");
+  if (survey) {
+    surveyBtn.href = survey;
+    surveyBtn.hidden = false;
+  }
+
+  /* activities accetta una stringa o un elenco: con una sola attività
+     l'etichetta resta "ATTIVITÀ", con due o più vengono numerate. */
+  const activities = [].concat(task.activities || []);
+
+  contentEl.innerHTML =
+    `${task.scenario ? `<div class="scenario">${richTextToHtml(task.scenario)}</div>` : ""}${activities.map((text, i) => `
+      <section class="activity">
+        <span class="tag">ATTIVITÀ${activities.length > 1 ? " " + (i + 1) : ""}</span>
+        ${richTextToHtml(text)}
+      </section>`).join("")}`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Test di usabilità</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F6F7;--ink:#1c1f26;--body:#33352f;--gold:#c0a05a;--muted:#6f6a5e;--rule:#ddd8cc}
+*{box-sizing:border-box}
+html{font-size:15px}
+body{margin:0;background:var(--bg);color:var(--body);font-family:"Jost",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center;padding:7rem 1.5rem}
+.sheet{width:100%;max-width:680px}
+h1{font-weight:400;font-size:clamp(2.4rem,6vw,3.4rem);color:var(--ink);letter-spacing:.5px;margin:0 0 1.6rem}
+.lead{font-size:1.06rem;line-height:1.65;margin:0 0 1.9rem}
+.intro-label,.tasks-label{font-size:1.06rem;line-height:1.5;margin:0 0 1.5rem}
+ol{list-style:none;counter-reset:step;margin:0;padding:0}
+ol li{counter-increment:step;display:grid;grid-template-columns:2.4rem 1fr;gap:.6rem;margin-bottom:.7rem;font-size:1.06rem;line-height:1.65}
+ol li::before{content:counter(step) ".";font-size:1.15rem;font-weight:600;color:var(--muted)}
+strong{color:var(--ink);font-weight:600}
+hr{border:0;border-top:1px solid var(--rule);margin:2.6rem 0}
+.note{color:var(--ink);font-weight:600;line-height:1.6;margin:0 0 2.2rem}
+.thanks{font-size:1.02rem;margin:0 0 2.8rem}
+.task-row{display:flex;gap:.75rem;max-width:680px}
+.task-tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border-radius:1rem;border:1px solid rgba(0,0,0,.1);background:#fff;padding:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.06);flex:1;min-height:130px;cursor:pointer;text-decoration:none;transition:box-shadow .2s,transform .2s}
+.task-tile:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1)}
+.task-tile:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.task-tile::before{content:'';position:absolute;top:0;right:0;width:3.5rem;height:3.5rem;border-bottom-left-radius:1.5rem;background:rgba(0,0,0,.05);transition:width .2s,height .2s}
+.task-tile:hover::before{width:4rem;height:4rem}
+.arrow{align-self:flex-end;position:relative;z-index:1;color:#9a9488;line-height:0;transition:color .2s}
+.arrow svg{display:block;width:16px;height:16px;stroke-width:1.5;transition:stroke-width .2s}
+.task-tile:hover .arrow{color:#33352f}
+.task-tile:hover .arrow svg{stroke-width:2}
+.label{font-size:1.25rem;font-weight:500;color:#1c1c1c;margin-top:auto;line-height:1.2}
+.task-tile:hover .label{font-weight:600}
+.task-check{position:relative;z-index:1;display:none;margin-top:.35rem;font-size:.85rem;color:var(--muted)}
+.check-icon{color:#2e7d32;font-weight:700}
+.task-tile.opened .task-check{display:block}
+@media(max-width:640px){body{padding:3rem 1.2rem}.task-row{flex-wrap:wrap}.task-tile{flex:1 1 45%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="sheet">
+<h1>Caro partecipante,</h1>
+<p class="lead">Oggi ti chiederemo di compiere alcuni task sul <strong>portale Ourbank</strong>, usando mouse e tastiera.</p>
+<p class="intro-label">Alcune informazioni utili da sapere:</p>
+<ol>
+<li><span>Non serve alcuna preparazione: ti guideremo passo passo.</span></li>
+<li><span>Ricordati di <strong>commentare ad alta voce</strong> tutti i passaggi che fai.</span></li>
+<li><span>Il test si svolge su ambiente di test: non preoccuparti se i dati che vedrai non saranno del tutto reali. Saranno comunque sufficienti a portare a termine ciascun task e a raccogliere i tuoi pensieri al riguardo.</span></li>
+<li><span>Puoi rileggere le <strong>istruzioni del task</strong> in qualsiasi momento, anche mentre lo stai svolgendo.</span></li>
+</ol>
+<hr>
+<p class="note">Non esistono risposte giuste o sbagliate — sentiti libero di rispondere come ti sembra più appropriato.</p>
+<p class="thanks">✨ Ti ringraziamo per la tua preziosa collaborazione.</p>
+<hr>
+<p class="tasks-label">Apri un task per iniziare:</p>
+<div class="task-row">
+  <a class="task-tile" data-task="1" target="_blank" rel="noopener">
+    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+    <span class="label">Task 1</span>
+    <span class="task-check"><span class="check-icon">✓</span> Aperto</span>
+  </a>
+
+  <a class="task-tile" data-task="2" target="_blank" rel="noopener">
+    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+    <span class="label">Task 2</span>
+    <span class="task-check"><span class="check-icon">✓</span> Aperto</span>
+  </a>
+
+  <a class="task-tile" data-task="3" target="_blank" rel="noopener">
+    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+    <span class="label">Task 3</span>
+    <span class="task-check"><span class="check-icon">✓</span> Aperto</span>
+  </a>
+
+  <a class="task-tile" data-task="4" target="_blank" rel="noopener">
+    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+    <span class="label">Task 4</span>
+    <span class="task-check"><span class="check-icon">✓</span> Aperto</span>
+  </a>
+
+  <a class="task-tile" data-task="5" target="_blank" rel="noopener">
+    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+    <span class="label">Task 5</span>
+    <span class="task-check"><span class="check-icon">✓</span> Aperto</span>
+  </a>
+</div>
+</main>
+<script src="tasks.js"></script>
+<script>
+/* Tutte le tessere aprono la stessa pagina di istruzioni.
+   Non apriamo più automaticamente il questionario (evitiamo popup bloccati dall'azienda).
+   Il questionario può essere aperto dall'interno della pagina del task se necessario. */
+const TASK_PAGE = "task-tabs.html";
+
+document.querySelectorAll(".task-tile").forEach((tile) => {
+  const n = tile.dataset.task;
+  tile.href = TASK_PAGE + "?task=" + n;
+  tile.addEventListener("click", () => {
+    // Non apriamo il questionario qui per evitare popup bloccati
+    tile.classList.add("opened");
+  });
+});
+</script>
+</body>
+</html>
