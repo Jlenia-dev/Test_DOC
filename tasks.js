@@ -52,7 +52,7 @@ const TASKS = {
     title: "Task 4",
     scenario: "Immagina di dover verificare alcuni documenti di una specifica banca.",
     activities: [
-      "Visualizza i documenti della <strong> banca 03599</strong>, associati alle <strong>chiavi 0359904VAR2600000130 e 0359912PORP005787740</strong>."
+      "Visualizza i documenti della <strong> banca 03599</strong>, associati alle <strong>chiavi 0359904VAR2600000130 e 0359912PORP005787740</strong>.",
       "<strong>Incolla nella chat</strong> di questa riunione il <strong>contenuto testuale</strong> della prima pagina del documento PDF."
     ],
     survey: ""
